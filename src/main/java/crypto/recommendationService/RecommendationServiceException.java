@@ -1,7 +1,7 @@
 package crypto.recommendationService;
 
 /**
- * Exception class for the recommendation service
+ * Custom exception class for the crypto recommendation service
  */
 public class RecommendationServiceException extends RuntimeException {
 

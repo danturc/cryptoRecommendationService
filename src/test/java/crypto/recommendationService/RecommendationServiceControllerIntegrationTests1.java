@@ -27,7 +27,7 @@ public class RecommendationServiceControllerIntegrationTests1 {
 	
 	@Test
 	public void testAllCryptosAreNotParsed() throws Exception {
-		mvc.perform(get("/crypto/get_all"))
+		mvc.perform(get("/crypto/get/all"))
 		   .andDo(print())
 		   .andExpect(status().isOk())
 		   .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -36,7 +36,7 @@ public class RecommendationServiceControllerIntegrationTests1 {
 	
 	@Test
 	public void testCryptoNotParsedByCodeCorruptedOtherCodes() throws Exception {
-		mvc.perform(get("/crypto/get_by_code/btc"))
+		mvc.perform(get("/crypto/get/code/btc"))
 		   .andDo(print())
 		   .andExpect(status().isOk())
 		   .andExpect(content().string("The crypto prices file is corrupted(other codes) : BTC" + cryptoFileSuffix));
@@ -44,7 +44,7 @@ public class RecommendationServiceControllerIntegrationTests1 {
 	
 	@Test
 	public void testCryptoNotParsedByCodeCorruptedNoData() throws Exception {
-		mvc.perform(get("/crypto/get_by_code/doge"))
+		mvc.perform(get("/crypto/get/code/doge"))
 		   .andDo(print())
 		   .andExpect(status().isOk())
 		   .andExpect(content().string("The crypto prices file is corrupted(no data) : DOGE" + cryptoFileSuffix));
@@ -52,7 +52,7 @@ public class RecommendationServiceControllerIntegrationTests1 {
 	
 	@Test
 	public void testCryptoNotParsedByCodeCorruptedZeroPrice() throws Exception {
-		mvc.perform(get("/crypto/get_by_code/eth"))
+		mvc.perform(get("/crypto/get/code/eth"))
 		   .andDo(print())
 		   .andExpect(status().isOk())
 		   .andExpect(content().string("The crypto prices file is corrupted(zero or negative prices) : ETH" + cryptoFileSuffix));
@@ -60,7 +60,7 @@ public class RecommendationServiceControllerIntegrationTests1 {
 	
 	@Test
 	public void testCryptoNotParsedByCodeCorruptedTimestamp() throws Exception {
-		mvc.perform(get("/crypto/get_by_code/xrp"))
+		mvc.perform(get("/crypto/get/code/xrp"))
 		   .andDo(print())
 		   .andExpect(status().isOk())
 		   .andExpect(content().string("The crypto prices file is corrupted(time or price format) : XRP" + cryptoFileSuffix));
@@ -68,7 +68,7 @@ public class RecommendationServiceControllerIntegrationTests1 {
 	
 	@Test
 	public void testCryptoNotParsedByCodeCorruptedPrice() throws Exception {
-		mvc.perform(get("/crypto/get_by_code/ltc"))
+		mvc.perform(get("/crypto/get/code/ltc"))
 		   .andDo(print())
 		   .andExpect(status().isOk())
 		   .andExpect(content().string("The crypto prices file is corrupted(time or price format) : LTC" + cryptoFileSuffix));
@@ -76,7 +76,8 @@ public class RecommendationServiceControllerIntegrationTests1 {
 	
 	@Test
 	public void testCryptoNotParsedByCodeCorruptedLine() throws Exception {
-		mvc.perform(get("/crypto/get_by_code/btx"))
+		mvc.perform(get("/crypto/add/code/btx"));
+		mvc.perform(get("/crypto/get/code/btx"))
 		   .andDo(print())
 		   .andExpect(status().isOk())
 		   .andExpect(content().string("The crypto prices file is corrupted(insufficient data) : BTX" + cryptoFileSuffix));
